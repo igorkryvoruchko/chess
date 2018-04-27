@@ -10,7 +10,7 @@ parameters:
 
 framework:
     #esi: ~
-    #translator: { fallbacks: ['%locale%'] }
+    translator: { fallbacks: [ "en" ] }
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -65,3 +65,11 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+
+easy_admin:
+    entities:
+        ChessMatch:
+            class: AppBundle\Entity\ChessMatch
+        Playears:
+            class: AppBundle\Entity\Playears
