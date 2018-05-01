@@ -3,14 +3,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Playears
+ * Players
  *
- * @ORM\Table(name="playears")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PlayearsRepository")
+ * @ORM\Table(name="players")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PlayersRepository")
  */
-class Playears
+class Players
 {
     /**
      * @var int
@@ -44,7 +43,7 @@ class Playears
      *
      * @param float $rating
      *
-     * @return Playears
+     * @return Players
      */
     public function setRating($rating)
     {
@@ -61,6 +60,10 @@ class Playears
     public function getRating()
     {
         return $this->rating;
+    }
+
+    public function __toString() {
+        return (string) $this->id;
     }
 }
 

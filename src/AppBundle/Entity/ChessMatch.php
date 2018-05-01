@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,28 +25,34 @@ class ChessMatch
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="start", type="datetime")
+     * @ORM\Column(name="start", type="datetime", nullable=true)
      */
     private $start;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="finish", type="datetime")
+     * @ORM\Column(name="finish", type="datetime", nullable=true)
      */
     private $finish;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="playears", type="string", length=255)
+     * Many Users have Many Groups.
+     * @ORM\ManyToMany(targetEntity="Players")
+     * @ORM\JoinTable(name="chessMatch_player",
+     *      joinColumns={@ORM\JoinColumn(name="chessMatch_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="player_id", referencedColumnName="id")}
+     *      )
      */
-    private $playears;
+    private $player;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="winner", type="string", length=255)
+     * Many Users have Many Groups.
+     * @ORM\ManyToMany(targetEntity="Players")
+     * @ORM\JoinTable(name="winner_player",
+     *      joinColumns={@ORM\JoinColumn(name="winner_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="player_id", referencedColumnName="id")}
+     *      )
      */
     private $winner;
 
@@ -55,6 +62,10 @@ class ChessMatch
      * @ORM\Column(name="log", type="text")
      */
     private $log;
+
+    public function __construct() {
+        $this->player = new ArrayCollection();
+    }
 
 
     /**
@@ -115,29 +126,24 @@ class ChessMatch
         return $this->finish;
     }
 
-    /**
-     * Set playears
-     *
-     * @param string $playears
-     *
-     * @return ChessMatch
-     */
-    public function setPlayears($playears)
-    {
-        $this->playears = $playears;
 
-        return $this;
+    /**
+     * @return mixed
+     */
+    public function getPlayer()
+    {
+        return $this->player;
     }
 
     /**
-     * Get playears
-     *
-     * @return string
+     * @param mixed $player
      */
-    public function getPlayears()
+    public function setPlayer($player)
     {
-        return $this->playears;
+        $this->player = $player;
     }
+
+
 
     /**
      * Set winner
@@ -186,5 +192,7 @@ class ChessMatch
     {
         return $this->log;
     }
+
+
 }
 
