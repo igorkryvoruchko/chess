@@ -47,12 +47,9 @@ class ChessMatch
     private $player;
 
     /**
-     * Many Users have Many Groups.
-     * @ORM\ManyToMany(targetEntity="Players")
-     * @ORM\JoinTable(name="winner_player",
-     *      joinColumns={@ORM\JoinColumn(name="winner_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="player_id", referencedColumnName="id")}
-     *      )
+     * One Match has one winner.
+     * @ORM\OneToOne(targetEntity="Players")
+     * @ORM\JoinColumn(name="mentor_id", referencedColumnName="id")
      */
     private $winner;
 
@@ -66,6 +63,8 @@ class ChessMatch
     public function __construct() {
         $this->player = new ArrayCollection();
     }
+
+
 
 
     /**
@@ -193,6 +192,9 @@ class ChessMatch
         return $this->log;
     }
 
+    public function __toString() {
+        return (string) $this->start;
+    }
 
 }
 

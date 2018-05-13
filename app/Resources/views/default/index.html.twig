@@ -22,8 +22,11 @@
                     {% for repositorys in repository %}
                         <p>Start: {{ repositorys.start|date('Y-m-d H:i:s') }}</p>
                         <p>Finish: {{ repositorys.finish|date('Y-m-d H:i:s') }}</p>
-                        <p>Playears: {{ repositorys.playears }}</p>
-                        <p>Winner: {{ repositorys.winner }}</p>
+
+                        {{ dump(repositorys.player) }}
+                        {% for play in repositorys.player %}
+                            {{ dump(play) }}
+                            {% endfor %}
                         <p>Log: {{ repositorys.log }}</p>
                         <hr>
                     {% endfor %}

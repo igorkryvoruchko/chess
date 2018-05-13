@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Matches{% endblock %}
+
+{% block body %}
+    {% for match in repository %}
+        <hr>
+        <p>Start match: {{ match.start|localizeddate('long', 'short') }}</p>
+        <p>Finish match: {{ match.finish|localizeddate('long', 'short') }}</p>
+        <p>Players: <br>
+        {% for players in match.player %}
+            player id: {{ players.id }} || player rating: {{ players.rating }}<br>
+        {% endfor %}
+        </p>
+        <p>Winner id: {{ match.winner }}
+        {% for winner in match.winner %}
+            {{ winner.id }}
+        {% endfor %}
+        </p>
+        <p>Log of match: <br>{{ match.log }}</p>
+    {% endfor %}
+{% endblock %}
