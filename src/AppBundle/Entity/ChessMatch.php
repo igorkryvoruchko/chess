@@ -49,7 +49,7 @@ class ChessMatch
     /**
      * One Match has one winner.
      * @ORM\OneToOne(targetEntity="Players")
-     * @ORM\JoinColumn(name="mentor_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="player_id", referencedColumnName="id")
      */
     private $winner;
 
