@@ -92,8 +92,20 @@ class ApiController extends FOSRestController
     {
         $id = $request->query->get('id');
         $em = $this->getDoctrine()->getManager();
-        $rating = $em->getRepository(Players::class)->findPlayerRating($id);
-        return $rating;
+        $rating = $em->getRepository(Players::class)->find($id);
+        return $rating->getRating();
+    }
+
+    /**
+     * @Get("/api/matches_by_player")
+     */
+    public function getMatchesByPlayerAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        $em = $this->getDoctrine()->getManager();
+        $result = $em->getRepository(ChessMatch::class)->findMatchesByPlayer($id);
+
+        return $result;
     }
 
 

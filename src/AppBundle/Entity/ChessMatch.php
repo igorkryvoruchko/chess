@@ -37,7 +37,7 @@ class ChessMatch
     private $finish;
 
     /**
-     * Many Users have Many Groups.
+     * Many Players have Many Matches.
      * @ORM\ManyToMany(targetEntity="Players")
      * @ORM\JoinTable(name="chessMatch_player",
      *      joinColumns={@ORM\JoinColumn(name="chessMatch_id", referencedColumnName="id")},
@@ -48,7 +48,7 @@ class ChessMatch
 
     /**
      * One Match has one winner.
-     * @ORM\OneToOne(targetEntity="Players")
+     * @ORM\ManyToOne(targetEntity="Players")
      * @ORM\JoinColumn(name="player_id", referencedColumnName="id")
      */
     private $winner;
