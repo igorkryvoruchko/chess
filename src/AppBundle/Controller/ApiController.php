@@ -102,8 +102,23 @@ class ApiController extends FOSRestController
     public function getMatchesByPlayerAction(Request $request)
     {
         $id = $request->query->get('id');
+
         $em = $this->getDoctrine()->getManager();
         $result = $em->getRepository(ChessMatch::class)->findMatchesByPlayer($id);
+
+        return $result;
+    }
+
+    /**
+     * @Get("/api/matches_by_date/")
+     */
+    public function getMatchesByDateAction(Request $request)
+    {
+        $min_date = $request->query->get('min_date');
+        $max_date = $request->query->get('max_date');
+
+        $em = $this->getDoctrine()->getManager();
+        $result = $em->getRepository(ChessMatch::class)->findMatchesByDate($min_date, $max_date);
 
         return $result;
     }

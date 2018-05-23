@@ -4,7 +4,7 @@
 
 {% block body %}
     {% for match in repository %}
-        <hr>{{ dump(match.start) }}
+        <hr>
         <p>Start match: {{ match.start|localizeddate('long', 'short') }}</p>
         <p>Finish match: {{ match.finish|localizeddate('long', 'short') }}</p>
         <p>Players: <br>

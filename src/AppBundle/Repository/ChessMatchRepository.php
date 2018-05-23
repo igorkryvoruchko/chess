@@ -4,6 +4,8 @@ namespace AppBundle\Repository;
 
 use AppBundle\Entity\ChessMatch;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Lexer;
+use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 
 /**
  * ChessMatchRepository
@@ -14,6 +16,7 @@ use Doctrine\ORM\EntityRepository;
 class ChessMatchRepository extends EntityRepository
 {
     /**
+     * @param $id
      * @return ChessMatch[]
      */
     public function findMatchesByPlayer($id)
@@ -30,5 +33,21 @@ class ChessMatchRepository extends EntityRepository
         } catch (\Doctrine\ORM\NoResultException $exception) {
             return null;
         }
+    }
+
+    /**
+     * @param $min_date
+     * @param $max_date
+     * @return ChessMatch[]
+     */
+    public function findMatchesByDate($min_date, $max_date)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.start >= :min_date')
+            ->andWhere('m.start <= :max_date')
+            ->setParameter('min_date', $min_date)
+            ->setParameter('max_date', $max_date)
+            ->getQuery()
+            ->execute();
     }
 }
