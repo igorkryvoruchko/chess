@@ -10,6 +10,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\ChessMatch;
 use AppBundle\Entity\Players;
+use AppBundle\Forms\MatchType;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Delete;
@@ -49,24 +50,27 @@ class ApiController extends FOSRestController
      */
     public function setMatchAction(Request $request)
     {
-        $player = $request->request->get('player');
-        $winner = $request->request->get('winner');
-        $log = $request->request->get('log');
-        $start = new \DateTime($request->get('start'));
-        $finish = new \DateTime($request->get('finish'));
+        //$players_id = $request->request->get('player_id');
+        //$winner_id = $request->request->get('winner_id');
+        //$log = $request->request->get('log');
+        //$start = new \DateTime($request->get('start'));
+        //$finish = new \DateTime($request->get('finish'));
+
+        //$player = $this->getDoctrine()->getManager()->getRepository(Players::class)->find($players_id);
 
         $match = new ChessMatch();
-        $match->setPlayer($player);
-        $match->setWinner($winner);
-        $match->setLog($log);
-        $match->setStart($start);
-        $match->setFinish($finish);
+
+        $form = $this->createForm(new MatchType(), $match);
+        $form->submit($request->request->get($form->getName()));
+        if ($form->isValid())
+        {
+            $em= $this->getDoctrine()->getManager();
+            $em->persist($match);
+            $em->flush();
+        }
 
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($match);
-        $em->flush();
-        return "Match is set successfully! Great gob!";
+        return "Great job, match is successfully added!";
     }
 
 

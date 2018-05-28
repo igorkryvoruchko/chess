@@ -193,7 +193,7 @@ class ChessMatch
     }
 
     public function __toString() {
-        return (string) $this->start;
+        return (string) $this->player;
     }
 
 }
